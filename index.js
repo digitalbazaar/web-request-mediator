@@ -7,29 +7,8 @@
  */
 'use strict';
 
-import * as rpc from 'web-request-rpc';
-import WebRequestMediator from './WebRequestMediator';
-
-//import {PermissionManager} from './PermissionManager';
-//import {WebRequestMediator} from './WebRequestMediator';
-
-// export const server = new rpc.Server();
-
-// server.define('mediator', new WebRequestMediator());
-
-// export function listen(origin, options) {
-//   options = options || {};
-//   options = Object.assign({
-//     handle: window.opener || window.top,
-//   }, options);
-//   server.listen(origin, options);
-// }
-
-
-//export function
-
-
-//export ...
+export {PermissionManager} from './PermissionManager';
+export {WebRequestMediator} from './WebRequestMediator';
 
 /*
 Requirements
@@ -59,6 +38,5 @@ Design only supports one response from service provider app as well
 APIs for registering hooks for handling certain types of messages such that if the messages don’t match an error will be returned (JavaScript polyfill library implements must handle these)
 Service Provider Bridge (?)
 Load service provider web app and communicate with it
-
 
 */

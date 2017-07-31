@@ -18,5 +18,10 @@
   "homepage": "https://github.com/digitalbazaar/web-request-mediator",
   "dependencies": {
     "localforage": "^1.5.0"
+  },
+  "bedrock": {
+    "browserDependencies": [
+      "localforage"
+    ]
   }
 }
