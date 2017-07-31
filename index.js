@@ -7,8 +7,24 @@
  */
 'use strict';
 
-import PermissionManager from './PermissionManager';
+import * as rpc from 'web-request-rpc';
 import WebRequestMediator from './WebRequestMediator';
+
+//import {PermissionManager} from './PermissionManager';
+//import {WebRequestMediator} from './WebRequestMediator';
+
+// export const server = new rpc.Server();
+
+// server.define('mediator', new WebRequestMediator());
+
+// export function listen(origin, options) {
+//   options = options || {};
+//   options = Object.assign({
+//     handle: window.opener || window.top,
+//   }, options);
+//   server.listen(origin, options);
+// }
+
 
 //export function
 

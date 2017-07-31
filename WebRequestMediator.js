@@ -1,28 +1,25 @@
 /*!
- * A Web Request Mediator.
+ * The core WebRequestMediator class.
  *
  * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
  */
 'use strict';
 
-import xxx from './xxx';
+import * as rpc from 'web-request-rpc';
 
-class WebRequestMediator {
-  // TODO:
+//import {PermissionManager} from './PermissionManager';
+//import {WebRequestMediator} from './WebRequestMediator';
 
+export default class WebRequestMediator {
+
+  async show() {
+    // TODO: send a 'show' message to the client?
+  }
+
+  async hide() {
+    // TODO: send a 'hide' message to the client?
+  }
 }
-
-/**
- * Starts the Web Request Mediator.
- *
- * This call will initialize the
- *
-export function start(clientOrigin) {
-  // TODO: starts the web request mediator
-
-  // TO
-}
-
 
 //export function
 
