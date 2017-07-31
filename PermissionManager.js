@@ -62,6 +62,7 @@ export class PermissionManager {
    *           (e.g. {state: 'granted'/'denied'})).
    */
   async request(permissionDesc) {
+    // TODO: disallow more than one request at a time or pipeline them
     this._validatePermissionDescriptor(permissionDesc);
     const status = await this._request(permissionDesc);
     this._validatePermissionStatus(status);
