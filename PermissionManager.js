@@ -21,7 +21,7 @@ export class PermissionManager {
     this.origin = origin;
     this._request = request;
     this.permissions = localforage.createInstance({
-      name: 'permissions'
+      name: 'permissions_' + origin
     });
     // a list of supported permissions
     this.registry = [];
@@ -40,7 +40,7 @@ export class PermissionManager {
   async query(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
 
-    const status = await this.permissions.getItem(this._key(permissionDesc.name));
+    const status = await this.permissions.getItem(permissionDesc.name);
     if(status) {
       return status;
     }
@@ -64,11 +64,11 @@ export class PermissionManager {
   async request(permissionDesc) {
     // TODO: disallow more than one request at a time or pipeline them
     this._validatePermissionDescriptor(permissionDesc);
-    let status = await this.permissions.setItem(this._key(permissionDesc.name));
+    let status = await this.permissions.setItem(permissionDesc.name);
     if(status.state === 'prompt') {
       let status = await this._request(permissionDesc);
       this._validatePermissionStatus(status);
-      await this.permissions.setItem(this._key(permissionDesc.name), status);
+      await this.permissions.setItem(permissionDesc.name, status);
     }
     return status;
   }
@@ -86,9 +86,9 @@ export class PermissionManager {
   async revoke(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
     // set permission status back to default, which is `prompt`
-    await this.permissions.setItem(this._key(permissionDesc.name, {
+    await this.permissions.setItem(permissionDesc.name, {
       state: 'prompt'
-    }));
+    });
     // call `query` according to spec
     return this.query(permissionDesc);
   }
@@ -124,17 +124,6 @@ export class PermissionManager {
       VALID_PERMISSION_STATES.includes(status.state))) {
       throw new Error(`Invalid permission state "${status.state}".`);
     }
-  }
-
-  /**
-   * Generates the database key for the given permission name.
-   *
-   * @param permissionName the name of the permission.
-   *
-   * @return the database key.
-   */
-  _key(permissionName) {
-    return JSON.stringify([this.origin, permissionName]);
   }
 }
 
