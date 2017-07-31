@@ -139,7 +139,5 @@ export class PermissionManager {
 }
 
 async function deny() {
-  return Promise.resolve({
-    state: 'denied'
-  });
+  return {state: 'denied'};
 }
