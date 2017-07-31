@@ -67,7 +67,7 @@ export class PermissionManager {
     const status = await this._request(permissionDesc);
     this._validatePermissionStatus(status);
     await this.permissions.setItem(this._key(permissionDesc.name), status);
-    return Promise.resolve(status);
+    return status;
   }
 
   /**
