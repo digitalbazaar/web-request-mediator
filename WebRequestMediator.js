@@ -23,18 +23,16 @@ export class WebRequestMediator {
    * connected, the WebRequestMediator can start servicing calls from that
    * origin.
    *
-   * @param origin the instantiating or "controlling" origin.
-   *
    * @return a Promise that resolves to an injector for creating client APIs
    *           once the connection is ready.
    */
-  async connect(origin) {
+  async connect() {
     this.injector = await this.client.connect(this.origin);
     this._connected = true;
     this._control = this.injector.define('core.control', {
       functions: ['ready', 'show', 'hide']
     });
-    this.server.listen(origin);
+    this.server.listen(this.origin);
     this._control.ready();
     return this.injector;
   }
