@@ -11,4 +11,10 @@ export class WebRequestMediator extends rpc.WebApp {
   constructor(origin) {
     super(origin);
   }
+
+  async connect() {
+    await super.connect();
+    await this.ready();
+    return this.injector;
+  }
 }
