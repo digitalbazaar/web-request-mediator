@@ -8,8 +8,8 @@
 import * as rpc from 'web-request-rpc';
 
 export class WebRequestMediator extends rpc.WebApp {
-  constructor(origin) {
-    super(origin);
+  constructor(relyingOrigin) {
+    super(relyingOrigin);
   }
 
   async connect() {

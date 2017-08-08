@@ -5,7 +5,7 @@
  */
 'use strict';
 
-import * as localforage from 'localforage';
+import localforage from 'localforage';
 
 const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 
