@@ -65,9 +65,13 @@ export class PermissionManager {
     // TODO: disallow more than one request at a time or pipeline them
     let status = await this.query(permissionDesc);
     if(status.state === 'prompt') {
-      status = await this._request(permissionDesc);
+      let storeStatus = status = await this._request(permissionDesc);
       this._validatePermissionStatus(status);
-      await this.permissions.setItem(permissionDesc.name, status);
+      // do not store `denied`, set to `prompt` so origin can ask later
+      if(status.state === 'denied') {
+        storeStatus = {state: 'prompt'};
+      }
+      await this.permissions.setItem(permissionDesc.name, storeStatus);
     }
     return status;
   }
