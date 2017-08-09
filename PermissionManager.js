@@ -94,6 +94,15 @@ export class PermissionManager {
   }
 
   /**
+   * Registers a permission.
+   *
+   * @param permissionName the permission name.
+   */
+  _registerPermission(permissionName) {
+    this.registry[permissionName] = true;
+  }
+
+  /**
    * Ensures a PermissionDescriptor is valid, throwing exceptions if not.
    *
    * @param permissionDesc the PermissionDescriptor to check.
@@ -103,7 +112,7 @@ export class PermissionManager {
       throw new TypeError('"permissionDesc" must be an object.');
     }
     // TODO: support EventHandler `onchange` too
-    if(typeof permissionDesc.name === 'string') {
+    if(typeof permissionDesc.name !== 'string') {
       throw new TypeError('"permissionDesc.name" must be a string.');
     }
     if(!this.registry[permissionDesc.name]) {
