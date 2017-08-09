@@ -63,8 +63,7 @@ export class PermissionManager {
    */
   async request(permissionDesc) {
     // TODO: disallow more than one request at a time or pipeline them
-    this._validatePermissionDescriptor(permissionDesc);
-    let status = await this.permissions.setItem(permissionDesc.name);
+    let status = await this.query(permissionDesc);
     if(status.state === 'prompt') {
       let status = await this._request(permissionDesc);
       this._validatePermissionStatus(status);
