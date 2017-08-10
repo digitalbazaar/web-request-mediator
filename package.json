@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/digitalbazaar/web-request-mediator",
   "dependencies": {
-    "localforage": "^1.5.0"
+    "localforage": "^1.5.0",
+    "web-request-rpc": "^0.0.1",
   },
   "bedrock": {
     "browserDependencies": [
-      "localforage"
+      "localforage",
+      "web-request-rpc"
     ]
   }
 }
