@@ -10,18 +10,17 @@ import localforage from 'localforage';
 const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 
 export class PermissionManager {
-  constructor(origin, {request = deny} = {}) {
-    if(!(origin && typeof origin === 'string')) {
-      throw new TypeError('"origin" must be a non-empty string.');
+  constructor(relyingOrigin, {request = deny} = {}) {
+    if(!(relyingOrigin && typeof relyingOrigin === 'string')) {
+      throw new TypeError('"relyingOrigin" must be a non-empty string.');
     }
     if(typeof request !== 'function') {
       throw new TypeError('"request" must be a function.');
     }
 
-    this.origin = origin;
     this._request = request;
     this.permissions = localforage.createInstance({
-      name: 'permissions_' + origin
+      name: 'permissions_' + relyingOrigin
     });
     // a list of supported permissions
     this.registry = [];
