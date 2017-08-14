@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 0.0.4 - 2017-08-14
+
+### Added
+- Added generic `WebRequestHandlersService`.
+
 ## 0.0.3 - 2017-08-10
 
 ### Changed
