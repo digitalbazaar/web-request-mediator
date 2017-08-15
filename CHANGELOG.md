@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 0.0.5 - 2017-08-15
+
+### Added
+- Added `SimpleContainerService`.
+
 ## 0.0.4 - 2017-08-14
 
 ### Added
