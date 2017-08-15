@@ -8,5 +8,6 @@
 'use strict';
 
 export {PermissionManager} from './PermissionManager';
+export {SimpleContainerService} from './SimpleContainerService';
 export {WebRequestHandlersService} from './WebRequestHandlersService';
 export {WebRequestMediator} from './WebRequestMediator';
