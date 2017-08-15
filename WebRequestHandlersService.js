@@ -76,13 +76,11 @@ export class WebRequestHandlersService extends EventEmitter {
    *           and `false` if not.
    */
   async unregister(requestType, url) {
-    console.log('unregister');
     url = _normalizeUrl(url, this._relyingOrigin);
 
     // find target registration
     const registration = await this.getRegistration(requestType, url);
     if(!registration) {
-      console.log('no registration');
       return false;
     }
 
@@ -96,7 +94,7 @@ export class WebRequestHandlersService extends EventEmitter {
       }
     };
     await this.emit(event);
-console.log('removing handler');
+
     // remove handler
     await WebRequestHandlersService._getHandlerStorage(
       requestType, this._relyingOrigin).removeItem(registration);
@@ -204,9 +202,9 @@ function _normalizeUrl(url, origin) {
 
 function _getOriginStorageConfig(requestType) {
   // TODO: use 'name' and 'storeName'?
-  // {name: 'webRequestHandler_' + requestType, storeName: 'origins'}
+  // {name: 'webRequestHandler_' + requestType, storeName: 'origin'}
   return {
-    name: 'webRequestHandler_' + requestType + '_origins'
+    name: 'webRequestHandler_' + requestType + '_origin'
   };
 }
 
@@ -214,9 +212,9 @@ function _getHandlerStorageConfig(requestType, origin) {
   // TODO: use 'name' and 'storeName'?
   // {
   //   name: 'webRequestHandler_' + requestType,
-  //   storeName: 'registrations_' + origin
+  //   storeName: 'registration_' + origin
   // }
   return {
-    name: 'webRequestHandler_' + requestType + '_' + origin + '_registrations'
+    name: 'webRequestHandler_' + requestType + '_' + origin + '_registration'
   };
 }

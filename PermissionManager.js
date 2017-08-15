@@ -20,7 +20,7 @@ export class PermissionManager {
 
     this._request = request;
     this.permissions = localforage.createInstance({
-      name: 'permissions_' + relyingOrigin
+      name: 'permission_' + relyingOrigin
     });
     // a list of supported permissions
     this.registry = [];
