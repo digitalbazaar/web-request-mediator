@@ -1,6 +1,6 @@
 {
   "name": "web-request-mediator",
-  "version": "0.0.6-0",
+  "version": "0.1.0",
   "description": "Web Request Mediator",
   "main": "index.js",
   "repository": {
