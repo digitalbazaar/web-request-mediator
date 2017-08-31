@@ -36,7 +36,7 @@ export class SimpleContainerService {
   }
 
   async delete(url, key) {
-    if(!await this.has(key)) {
+    if(!await this.has(url, key)) {
       return false;
     }
     await this._getStorage(url).removeItem(key);
