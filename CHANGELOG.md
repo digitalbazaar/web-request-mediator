@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 0.1.1 - 2017-08-30
+
+### Fixed
+- Fix `SimpleContainerService` `delete` bug.
+
 ## 0.1.0 - 2017-08-18
 
 ## 0.0.5 - 2017-08-15
