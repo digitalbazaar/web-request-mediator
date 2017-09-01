@@ -7,7 +7,7 @@
  */
 'use strict';
 
-export {PermissionManager} from './PermissionManager';
-export {SimpleContainerService} from './SimpleContainerService';
-export {WebRequestHandlersService} from './WebRequestHandlersService';
-export {WebRequestMediator} from './WebRequestMediator';
+export {PermissionManager} from './PermissionManager.js';
+export {SimpleContainerService} from './SimpleContainerService.js';
+export {WebRequestHandlersService} from './WebRequestHandlersService.js';
+export {WebRequestMediator} from './WebRequestMediator.js';
