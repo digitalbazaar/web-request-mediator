@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 0.1.2 - 2017-09-01
+
+### Fixed
+- Include `.js` extension on imports.
+
 ## 0.1.1 - 2017-08-30
 
 ### Fixed
