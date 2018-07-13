@@ -1,11 +1,11 @@
 /*!
  * Tracks Web Request handler registrations.
  *
- * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
  */
 'use strict';
 
-import localforage from 'localforage';
+import localforage from './storage.js';
 import {utils} from 'web-request-rpc';
 import {EventEmitter} from 'web-request-rpc';
 import {PermissionManager} from 'web-request-mediator';
@@ -204,7 +204,8 @@ function _getOriginStorageConfig(requestType) {
   // TODO: use 'name' and 'storeName'?
   // {name: 'webRequestHandler_' + requestType, storeName: 'origin'}
   return {
-    name: 'webRequestHandler_' + requestType + '_origin'
+    name: 'webRequestHandler_' + requestType + '_origin',
+    driver: localforage.driver()
   };
 }
 
@@ -215,6 +216,7 @@ function _getHandlerStorageConfig(requestType, origin) {
   //   storeName: 'registration_' + origin
   // }
   return {
-    name: 'webRequestHandler_' + requestType + '_' + origin + '_registration'
+    name: 'webRequestHandler_' + requestType + '_' + origin + '_registration',
+    driver: localforage.driver()
   };
 }

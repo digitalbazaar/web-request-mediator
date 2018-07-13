@@ -1,11 +1,11 @@
 /*!
  * A PermissionManager for a Web Request Mediator.
  *
- * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
  */
 'use strict';
 
-import localforage from 'localforage';
+import localforage from './storage.js';
 
 const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 
@@ -20,7 +20,8 @@ export class PermissionManager {
 
     this._request = request;
     this.permissions = localforage.createInstance({
-      name: 'permission_' + relyingOrigin
+      name: 'permission_' + relyingOrigin,
+      driver: localforage.driver()
     });
     // a list of supported permissions
     this.registry = [];
