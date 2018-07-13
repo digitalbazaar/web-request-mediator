@@ -3,11 +3,11 @@
  * simple container instances (those with a common CRUD interface) on a
  * particular remote origin.
  *
- * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
  */
 'use strict';
 
-import localforage from 'localforage';
+import localforage from './storage.js';
 import {utils} from 'web-request-rpc';
 
 export class SimpleContainerService {
@@ -106,7 +106,10 @@ export class SimpleContainerService {
    * @return the storage API.
    */
   static _getStorage(url, itemType) {
-    return localforage.createInstance({name: itemType + '_' + url});
+    return localforage.createInstance({
+      name: itemType + '_' + url,
+      driver: localforage.driver()
+    });
   }
 
   /**
