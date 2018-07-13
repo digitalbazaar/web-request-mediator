@@ -1,5 +1,7 @@
 # web-request-mediator ChangeLog
 
+## 1.0.0 - 2018-07-13
+
 ### Added
 - Add storage driver that uses cookies. This allows
   the Storage Access API to be used to enable polyfills
