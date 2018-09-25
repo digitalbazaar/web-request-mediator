@@ -6,17 +6,17 @@
 import {get, getAll, remove, set} from 'tiny-cookie';
 
 export default {
-    _driver: 'cookieWrapper',
-    _initStorage,
-    iterate,
-    getItem,
-    setItem,
-    removeItem,
-    clear,
-    length,
-    key,
-    keys,
-    dropInstance
+  _driver: 'cookieWrapper',
+  _initStorage,
+  iterate,
+  getItem,
+  setItem,
+  removeItem,
+  clear,
+  length,
+  key,
+  keys,
+  dropInstance
 };
 
 async function _initStorage(options) {
