@@ -1,5 +1,7 @@
 # web-request-mediator ChangeLog
 
+## 1.0.2 - 2018-09-27
+
 ### Changed
 - Update dependencies.
 
