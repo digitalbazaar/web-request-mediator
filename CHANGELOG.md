@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 1.0.3 - TBD
+
+### Added
+- Add `hasStorageAccess` and `requestStorageAccess` wrapper functions.
+
 ## 1.0.2 - 2018-09-27
 
 ### Changed
