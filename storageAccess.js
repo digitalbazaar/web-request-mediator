@@ -23,6 +23,9 @@ export async function requestStorageAccess() {
       await document.requestStorageAccess();
     }
   } catch(e) {
+    if(e === undefined) {
+      e = new Error('Storage access denied.');
+    }
     console.error(e);
     return false;
   }
