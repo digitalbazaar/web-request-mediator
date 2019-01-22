@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 1.1.1 - 2019-01-22
+
+### Fixed
+- Ensure an error is set when storage access is denied.
+
 ## 1.1.0 - 2019-01-21
 
 ### Added
