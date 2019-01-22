@@ -1,5 +1,11 @@
 # web-request-mediator ChangeLog
 
+## 1.1.2 - TBD
+
+### Fixed
+- Ensure to check for cookie presence when checking for storage
+  access in Safari.
+
 ## 1.1.1 - 2019-01-22
 
 ### Fixed
