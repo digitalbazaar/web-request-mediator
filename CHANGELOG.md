@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 1.1.2 - TBD
+## 1.1.2 - 2019-01-22
 
 ### Fixed
 - Ensure to check for cookie presence when checking for storage
