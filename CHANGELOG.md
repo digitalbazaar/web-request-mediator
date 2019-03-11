@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 1.1.3 - 2019-03-11
+
+### Fixed
+- Only check for cookie presence when storage access API is present.
+
 ## 1.1.2 - 2019-01-22
 
 ### Fixed
