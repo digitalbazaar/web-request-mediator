@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 1.1.4 - 2019-03-xx
+## 1.1.4 - 2019-03-11
 
 ### Fixed
 - Only check for cookie existence on Safari.
