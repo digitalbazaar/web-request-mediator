@@ -28,11 +28,11 @@ export async function requestStorageAccess() {
     // Firefox or Safari
     if(typeof document.requestStorageAccess === 'function') {
       await document.requestStorageAccess();
-    }
-    // Safari has no window.netscape;
-    // Safari needs to check for cookie existence
-    if(document.cookie === '') {
-      throw new Error('Storage access denied.');
+      // Safari has no window.netscape;
+      // Safari needs to check for cookie existence
+      if(document.cookie === '') {
+        throw new Error('Storage access denied.');
+      }
     }
   } catch(e) {
     if(e === undefined) {
