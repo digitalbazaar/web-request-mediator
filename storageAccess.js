@@ -30,7 +30,7 @@ export async function requestStorageAccess() {
       await document.requestStorageAccess();
       // Safari has no window.netscape;
       // Safari needs to check for cookie existence
-      if(document.cookie === '') {
+      if(!window.netscape && document.cookie === '') {
         throw new Error('Storage access denied.');
       }
     }
