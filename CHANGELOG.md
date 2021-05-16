@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 1.2.0 - 2021-05-xx
+## 1.2.0 - 2021-05-16
 
 ### Added
 - Expose `WebRequestHandlersService_setRegistration` to enable mediators to
