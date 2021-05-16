@@ -48,22 +48,8 @@ export class WebRequestHandlersService extends EventEmitter {
       return existing;
     }
 
-    // add new registration:
-    // 1. Add that origin has registered for the request type.
-    // 2. Add the registration url.
-    const originStorage = WebRequestHandlersService._getOriginStorage(
-      requestType);
-    await originStorage.setItem(
-      this._relyingOrigin,
-      _getHandlerStorageConfig(requestType, this._relyingOrigin));
-
-    // TODO: could map `url` to a UUID or similar -- consider that
-    //   `url` either needs to be canonicalized or mapped to avoid confusion
-    const handlerStorage = WebRequestHandlersService._getHandlerStorage(
-      requestType, this._relyingOrigin);
-    await handlerStorage.setItem(url, true);
-
-    return url;
+    // safe to call this once `_normalizeUrl` has sanitized the url
+    return WebRequestHandlersService._setRegistration(requestType, url);
   }
 
   /**
@@ -189,6 +175,37 @@ export class WebRequestHandlersService extends EventEmitter {
     });
     await Promise.all(promises);
     return registrations;
+  }
+
+  /**
+   * Sets the handler registration for the origin matching the given url to
+   * the url value. This is a private method that may be called by a mediator
+   * to set a registration from within the mediator.
+   *
+   * @param requestType the type of request handled by the handler.
+   * @param url the unique URL for the handler.
+   *
+   * @return a Promise that resolves to the normalized URL for the
+   *   handler.
+   */
+  static async _setRegistration(requestType, url) {
+    const parsed = utils.parseUrl(url, origin);
+    const handlerUrl = parsed.origin + parsed.pathname;
+
+    // add new registration:
+    // 1. Add that origin has registered for the request type.
+    // 2. Add the registration url.
+    const originStorage = WebRequestHandlersService._getOriginStorage(
+      requestType);
+    await originStorage.setItem(
+      parsed.origin,
+      _getHandlerStorageConfig(requestType, parsed.origin));
+
+    const handlerStorage = WebRequestHandlersService._getHandlerStorage(
+      requestType, parsed.origin);
+    await handlerStorage.setItem(url, true);
+
+    return url;
   }
 }
 

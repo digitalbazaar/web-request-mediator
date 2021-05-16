@@ -1,5 +1,11 @@
 # web-request-mediator ChangeLog
 
+## 1.2.0 - 2021-05-xx
+
+### Added
+- Expose `WebRequestHandlersService_setRegistration` to enable mediators to
+  set registrations for any origin from within the mediator itself.
+
 ## 1.1.4 - 2019-03-11
 
 ### Fixed
