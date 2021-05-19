@@ -214,7 +214,10 @@ async function setItem(key, value, callback) {
     await this.ready();
     // FIXME: support `dbInfo.serializer`?
     value = JSON.stringify(value);
-    set(this._dbInfo.keyPrefix + key, value, {expires: '10Y'});
+    set(
+      this._dbInfo.keyPrefix + key,
+      value,
+      {secure: true, sameSite: 'None', expires: '10Y'});
   } catch(e) {
     if(callback) {
       return callback(e);
