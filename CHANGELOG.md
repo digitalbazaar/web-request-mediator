@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 1.2.1 - 2021-05-xx
+## 1.2.1 - 2021-05-19
 
 ### Fixed
 - Ensure entries stored via `cookieDriver` are set to `secure`.
