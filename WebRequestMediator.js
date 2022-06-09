@@ -5,9 +5,9 @@
  */
 'use strict';
 
-import * as rpc from 'web-request-rpc';
+import {WebApp} from 'web-request-rpc';
 
-export class WebRequestMediator extends rpc.WebApp {
+export class WebRequestMediator extends WebApp {
   constructor(relyingOrigin) {
     super(relyingOrigin);
   }
