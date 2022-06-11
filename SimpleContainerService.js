@@ -92,7 +92,6 @@ export class SimpleContainerService {
    */
   async _checkPermission() {
     // ensure origin has the required permission
-    const permission = this._requiredPermission;
     const status = await this._permissionManager.query(
       {name: this._requiredPermission});
     if(status.state !== 'granted') {
