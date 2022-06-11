@@ -1,11 +1,10 @@
 /*!
- * Copyright (c) 2018 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2018-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
-import localforage from 'localforage';
 import cookieDriver from './cookieDriver.js';
+import localforage from 'localforage';
 
+// FIXME: remove cookie driver (no longer used)
 localforage.defineDriver(cookieDriver);
 
 export default localforage;

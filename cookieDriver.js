@@ -1,8 +1,7 @@
 /*!
- * Copyright (c) 2018 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2018-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
+// FIXME: remove; this driver is no longer needed
 import {get, getAll, remove, set} from 'tiny-cookie';
 
 export default {

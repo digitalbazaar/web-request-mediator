@@ -1,18 +1,11 @@
 /*!
- * Tracks Web Request handler registrations.
- *
- * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
+import {EventEmitter} from 'web-request-rpc';
 import localforage from './storage.js';
 import {utils} from 'web-request-rpc';
-import {EventEmitter} from 'web-request-rpc';
-import {PermissionManager} from 'web-request-mediator';
 
-/**
- * Web Request handlers are tracked by request type.
- */
+/* Web Request handlers are tracked by request type. */
 export class WebRequestHandlersService extends EventEmitter {
   constructor(relyingOrigin, {requestType, permissionManager} = {}) {
     super({
