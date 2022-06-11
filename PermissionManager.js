@@ -8,18 +8,24 @@ const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 /* A PermissionManager for a Web Request Mediator. */
 export class PermissionManager {
   constructor(relyingOrigin, {request = deny} = {}) {
-    if(!(relyingOrigin && typeof relyingOrigin === 'string')) {
-      throw new TypeError('"relyingOrigin" must be a non-empty string.');
+    if(!(relyingOrigin && (typeof relyingOrigin === 'string' ||
+      relyingOrigin.then))) {
+      throw new TypeError(
+        '"relyingOrigin" must be a non-empty string or a promise that ' +
+        'resolves to one.');
     }
     if(typeof request !== 'function') {
       throw new TypeError('"request" must be a function.');
     }
 
     this._request = request;
-    this.permissions = localforage.createInstance({
-      name: 'permission_' + relyingOrigin,
-      driver: localforage.driver()
-    });
+    this.permissions = Promise.resolve(relyingOrigin)
+      .then(relyingOrigin => {
+        return localforage.createInstance({
+          name: 'permission_' + relyingOrigin,
+          driver: localforage.driver()
+        });
+      });
     // a list of supported permissions
     this.registry = [];
   }
@@ -37,7 +43,8 @@ export class PermissionManager {
   async query(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
 
-    const status = await this.permissions.getItem(permissionDesc.name);
+    const permissions = await this.permissions;
+    const status = await permissions.getItem(permissionDesc.name);
     if(status) {
       return status;
     }
@@ -68,7 +75,8 @@ export class PermissionManager {
       if(status.state === 'denied') {
         storeStatus = {state: 'prompt'};
       }
-      await this.permissions.setItem(permissionDesc.name, storeStatus);
+      const permissions = await this.permissions;
+      await permissions.setItem(permissionDesc.name, storeStatus);
     }
     return status;
   }
@@ -86,9 +94,8 @@ export class PermissionManager {
   async revoke(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
     // set permission status back to default, which is `prompt`
-    await this.permissions.setItem(permissionDesc.name, {
-      state: 'prompt'
-    });
+    const permissions = await this.permissions;
+    await permissions.setItem(permissionDesc.name, {state: 'prompt'});
     // call `query` according to spec
     return this.query(permissionDesc);
   }

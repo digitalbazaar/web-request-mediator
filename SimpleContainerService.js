@@ -14,8 +14,11 @@ export class SimpleContainerService {
     validateKey = () => {throw new Error('Not implemented.')},
     validateItem = () => {throw new Error('Not implemented.')}
   }) {
-    if(!(relyingOrigin && typeof relyingOrigin === 'string')) {
-      throw new TypeError('"relyingOrigin" must be a non-empty string.');
+    if(!(relyingOrigin && (typeof relyingOrigin === 'string' ||
+      relyingOrigin.then))) {
+      throw new TypeError(
+        '"relyingOrigin" must be a non-empty string or a promise that ' +
+        'resolves to one.');
     }
     if(!(itemType && typeof itemType === 'string')) {
       throw new TypeError('"itemType" must be a non-empty string.');
@@ -35,19 +38,22 @@ export class SimpleContainerService {
     if(!await this.has(url, key)) {
       return false;
     }
-    await this._getStorage(url).removeItem(key);
+    const storage = await this._getStorage(url);
+    await storage.removeItem(key);
     return true;
   }
 
   async get(url, key) {
     await this._checkPermission();
     this._validateKey(key);
-    return this._getStorage(url).getItem(key);
+    const storage = await this._getStorage(url);
+    return storage.getItem(key);
   }
 
   async keys(url) {
     await this._checkPermission();
-    return this._getStorage(url).keys();
+    const storage = await this._getStorage(url);
+    return storage.keys();
   }
 
   async has(url, key) {
@@ -58,12 +64,14 @@ export class SimpleContainerService {
     await this._checkPermission();
     this._validateKey(key);
     this._validateItem(item);
-    await this._getStorage(url).setItem(key, item);
+    const storage = await this._getStorage(url);
+    storage.setItem(key, item);
   }
 
   async clear(url) {
     await this._checkPermission();
-    return this._getStorage(url).clear();
+    const storage = await this._getStorage(url);
+    return storage.clear();
   }
 
   /**
@@ -72,10 +80,10 @@ export class SimpleContainerService {
    *
    * @param url the URL for the handler.
    *
-   * @return the storage API.
+   * @return {Promise} Resolves to the storage API.
    */
-  _getStorage(url) {
-    utils.isValidOrigin(url, this._relyingOrigin);
+  async _getStorage(url) {
+    utils.isValidOrigin(url, await this._relyingOrigin);
     return SimpleContainerService._getStorage(url, this._itemType);
   }
 
