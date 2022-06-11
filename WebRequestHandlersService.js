@@ -14,8 +14,11 @@ export class WebRequestHandlersService extends EventEmitter {
       }
     });
 
-    if(!(relyingOrigin && typeof relyingOrigin === 'string')) {
-      throw new TypeError('"relyingOrigin" must be a non-empty string.');
+    if(!(relyingOrigin && (typeof relyingOrigin === 'string' ||
+      relyingOrigin.then))) {
+      throw new TypeError(
+        '"relyingOrigin" must be a non-empty string or a promise that ' +
+        'resolves to one.');
     }
     this._relyingOrigin = relyingOrigin;
 
@@ -33,7 +36,7 @@ export class WebRequestHandlersService extends EventEmitter {
    *           handler.
    */
   async register(requestType, url) {
-    url = _normalizeUrl(url, this._relyingOrigin);
+    url = _normalizeUrl(url, await this._relyingOrigin);
 
     // return existing registration
     const existing = await this.getRegistration(requestType, url);
@@ -55,7 +58,8 @@ export class WebRequestHandlersService extends EventEmitter {
    *           and `false` if not.
    */
   async unregister(requestType, url) {
-    url = _normalizeUrl(url, this._relyingOrigin);
+    const relyingOrigin = await this._relyingOrigin;
+    url = _normalizeUrl(url, relyingOrigin);
 
     // find target registration
     const registration = await this.getRegistration(requestType, url);
@@ -76,7 +80,7 @@ export class WebRequestHandlersService extends EventEmitter {
 
     // remove handler
     await WebRequestHandlersService._getHandlerStorage(
-      requestType, this._relyingOrigin).removeItem(registration);
+      requestType, relyingOrigin).removeItem(registration);
     return true;
   }
 
@@ -90,7 +94,7 @@ export class WebRequestHandlersService extends EventEmitter {
    *            handler or `null` if no such registration exists.
    */
   async getRegistration(requestType, url) {
-    url = _normalizeUrl(url, this._relyingOrigin);
+    url = _normalizeUrl(url, await this._relyingOrigin);
     if(!await this.hasRegistration(requestType, url)) {
       return null;
     }
@@ -108,9 +112,10 @@ export class WebRequestHandlersService extends EventEmitter {
    *           `false` if not.
    */
   async hasRegistration(requestType, url) {
-    url = _normalizeUrl(url, this._relyingOrigin);
+    const relyingOrigin = await this._relyingOrigin;
+    url = _normalizeUrl(url, relyingOrigin);
     return await WebRequestHandlersService._getHandlerStorage(
-      requestType, this._relyingOrigin).getItem(url) === true;
+      requestType, relyingOrigin).getItem(url) === true;
   }
 
   /**
