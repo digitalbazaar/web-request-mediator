@@ -1,10 +1,7 @@
 /*!
- * New BSD License (3-clause)
- * Copyright (c) 2018-2019, Digital Bazaar, Inc.
- * All rights reserved.
+ * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
+// FIXME: remove file; no longer used
 export async function hasStorageAccess() {
   try {
     // Firefox or Safari

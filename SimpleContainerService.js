@@ -1,15 +1,11 @@
 /*!
- * A SimpleContainerService provides the implementation for
- * simple container instances (those with a common CRUD interface) on a
- * particular remote origin.
- *
- * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
 import localforage from './storage.js';
 import {utils} from 'web-request-rpc';
 
+/* A SimpleContainerService provides the implementation for simple container
+instances (those with a common CRUD interface) on a particular remote origin. */
 export class SimpleContainerService {
   constructor(relyingOrigin, {
     itemType,

@@ -1,10 +1,6 @@
 /*!
- * The core WebRequestMediator class.
- *
- * Copyright (c) 2017 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
 import {WebApp} from 'web-request-rpc';
 
 export class WebRequestMediator extends WebApp {

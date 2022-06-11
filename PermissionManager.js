@@ -1,14 +1,11 @@
 /*!
- * A PermissionManager for a Web Request Mediator.
- *
- * Copyright (c) 2017-2018 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-'use strict';
-
 import localforage from './storage.js';
 
 const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 
+/* A PermissionManager for a Web Request Mediator. */
 export class PermissionManager {
   constructor(relyingOrigin, {request = deny} = {}) {
     if(!(relyingOrigin && typeof relyingOrigin === 'string')) {
