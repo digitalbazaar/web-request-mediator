@@ -75,8 +75,13 @@ export class PermissionManager {
       if(status.state === 'denied') {
         storeStatus = {state: 'prompt'};
       }
-      const permissions = await this.permissions;
-      await permissions.setItem(permissionDesc.name, storeStatus);
+      // if state not already set, set it
+      if(!status.set) {
+        const permissions = await this.permissions;
+        await permissions.setItem(permissionDesc.name, storeStatus);
+      }
+      // return clean status
+      status = {state: status.state};
     }
     return status;
   }
