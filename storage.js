@@ -4,7 +4,6 @@
 import cookieDriver from './cookieDriver.js';
 import localforage from 'localforage';
 
-// FIXME: remove cookie driver (no longer used)
 localforage.defineDriver(cookieDriver);
 
 export default localforage;

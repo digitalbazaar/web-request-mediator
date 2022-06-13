@@ -1,7 +1,6 @@
 /*!
  * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-// FIXME: remove file; no longer used
 export async function hasStorageAccess() {
   try {
     // Firefox or Safari
