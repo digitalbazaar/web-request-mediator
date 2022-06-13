@@ -1,5 +1,14 @@
 # web-request-mediator ChangeLog
 
+## 2.0.0 - 2022-06-xx
+
+### Changed
+- **BREAKING**: Use `web-request-rpc@2`.
+- **BREAKING**: Allow passing relying origin as a promise.
+- **BREAKING**: Allow permissions to be set in 1p windows and return
+  results to 3p controlling iframes that indicate that this storage
+  occurred.
+
 ## 1.2.1 - 2021-05-19
 
 ### Fixed
