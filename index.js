@@ -9,5 +9,4 @@ export {PermissionManager} from './PermissionManager.js';
 export {SimpleContainerService} from './SimpleContainerService.js';
 export {WebRequestHandlersService} from './WebRequestHandlersService.js';
 export {WebRequestMediator} from './WebRequestMediator.js';
-export {default as storage} from './storage.js';
-export {hasStorageAccess, requestStorageAccess} from './storageAccess.js';
+export {storage} from './storage.js';

@@ -1,5 +1,12 @@
 # web-request-mediator ChangeLog
 
+## 2.0.0 - 2022-06-xx
+
+### Removed
+- Remove storage access API and cookie storage support. Mediators now use
+  1p windows to handle storage on browsers that partition storage in order
+  to avoid a wide range of issues.
+
 ## 1.2.1 - 2021-05-19
 
 ### Fixed
