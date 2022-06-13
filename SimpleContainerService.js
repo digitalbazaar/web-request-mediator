@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-import localforage from './storage.js';
+import {storage as localforage} from './storage.js';
 import {utils} from 'web-request-rpc';
 
 /* A SimpleContainerService provides the implementation for simple container

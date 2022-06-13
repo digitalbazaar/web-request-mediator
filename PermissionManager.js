@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
-import localforage from './storage.js';
+import {storage as localforage} from './storage.js';
 
 const VALID_PERMISSION_STATES = ['granted', 'denied', 'prompt'];
 

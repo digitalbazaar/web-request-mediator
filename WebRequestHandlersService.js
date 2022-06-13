@@ -2,7 +2,7 @@
  * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
  */
 import {EventEmitter} from 'web-request-rpc';
-import localforage from './storage.js';
+import {storage as localforage} from './storage.js';
 import {utils} from 'web-request-rpc';
 
 /* Web Request handlers are tracked by request type. */
