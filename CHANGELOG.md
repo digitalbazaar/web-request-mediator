@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 2.0.0 - 2022-06-xx
+## 2.0.0 - 2022-06-13
 
 ### Changed
 - **BREAKING**: Use `web-request-rpc@2`.
