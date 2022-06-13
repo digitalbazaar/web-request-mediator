@@ -20,7 +20,7 @@
   "dependencies": {
     "localforage": "^1.5.0",
     "tiny-cookie": "^2.1.2",
-    "web-request-rpc": "digitalbazaar/web-request-rpc#refactor"
+    "web-request-rpc": "^2.0.0"
   },
   "bedrock": {
     "browserDependencies": "all"
