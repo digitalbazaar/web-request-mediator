@@ -201,9 +201,9 @@ export class WebRequestHandlersService extends EventEmitter {
 
     const handlerStorage = WebRequestHandlersService._getHandlerStorage(
       requestType, parsed.origin);
-    await handlerStorage.setItem(url, true);
+    await handlerStorage.setItem(handlerUrl, true);
 
-    return url;
+    return handlerUrl;
   }
 }
 
