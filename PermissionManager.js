@@ -19,8 +19,10 @@ export class PermissionManager {
     }
 
     this._request = request;
+    console.log('resolving permissions');
     this.permissions = Promise.resolve(relyingOrigin)
       .then(relyingOrigin => {
+        console.log('creating permission instance');
         return localforage.createInstance({
           name: 'permission_' + relyingOrigin,
           driver: localforage.driver()
@@ -42,12 +44,21 @@ export class PermissionManager {
    */
   async query(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
+    console.log('permission query called');
 
-    const permissions = await this.permissions;
-    const status = await permissions.getItem(permissionDesc.name);
-    if(status) {
-      return status;
+    try {
+      const permissions = await this.permissions;
+      const status = await permissions.getItem(permissionDesc.name);
+      if(status) {
+        return status;
+      }
+    } catch(e) {
+      // special-case brave; it has no storage in 3rd party context
+      if(!navigator.brave || !e.message.startsWith('No available storage')) {
+        throw e;
+      }
     }
+
     // return default permission descriptor (state of `prompt`)
     return {
       state: 'prompt'
@@ -66,6 +77,7 @@ export class PermissionManager {
    *           (e.g. {state: 'granted'/'denied'})).
    */
   async request(permissionDesc) {
+    console.log('permission request called');
     // TODO: disallow more than one request at a time or pipeline them
     let status = await this.query(permissionDesc);
     if(status.state === 'prompt') {
@@ -77,8 +89,16 @@ export class PermissionManager {
       }
       // if state not already set, set it
       if(!status.set) {
-        const permissions = await this.permissions;
-        await permissions.setItem(permissionDesc.name, storeStatus);
+        try {
+          const permissions = await this.permissions;
+          await permissions.setItem(permissionDesc.name, storeStatus);
+        } catch(e) {
+          // special-case brave; it has no storage in 3rd party context
+          if(!navigator.brave ||
+            !e.message.startsWith('No available storage')) {
+            throw e;
+          }
+        }
       }
       // return clean status
       status = {state: status.state};
@@ -98,9 +118,16 @@ export class PermissionManager {
    */
   async revoke(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
-    // set permission status back to default, which is `prompt`
-    const permissions = await this.permissions;
-    await permissions.setItem(permissionDesc.name, {state: 'prompt'});
+    try {
+      // set permission status back to default, which is `prompt`
+      const permissions = await this.permissions;
+      await permissions.setItem(permissionDesc.name, {state: 'prompt'});
+    } catch(e) {
+      // special-case brave; it has no storage in 3rd party context
+      if(!navigator.brave || !e.message.startsWith('No available storage')) {
+        throw e;
+      }
+    }
     // call `query` according to spec
     return this.query(permissionDesc);
   }
