@@ -17,6 +17,8 @@ export default {
   dropInstance
 };
 
+const COOKIE_OPTIONS = {secure: true, sameSite: 'None', expires: '10Y'};
+
 async function _initStorage(options) {
   const dbInfo = {};
   if(options) {
@@ -186,7 +188,7 @@ async function removeItem(key, callback) {
 
   try {
     await this.ready();
-    remove(this._dbInfo.keyPrefix + key);
+    remove(this._dbInfo.keyPrefix + key, COOKIE_OPTIONS);
   } catch(e) {
     if(callback) {
       return callback(e);
@@ -212,10 +214,7 @@ async function setItem(key, value, callback) {
     await this.ready();
     // FIXME: support `dbInfo.serializer`?
     value = JSON.stringify(value);
-    set(
-      this._dbInfo.keyPrefix + key,
-      value,
-      {secure: true, sameSite: 'None', expires: '10Y'});
+    set(this._dbInfo.keyPrefix + key, value, COOKIE_OPTIONS);
   } catch(e) {
     if(callback) {
       return callback(e);
@@ -276,7 +275,7 @@ function _clear(keyPrefix) {
   const keys = Object.keys(getAll());
   for(const key of keys) {
     if(key.startsWith(keyPrefix)) {
-      remove(key);
+      remove(key, COOKIE_OPTIONS);
     }
   }
 }
