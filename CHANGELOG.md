@@ -1,5 +1,11 @@
 # web-request-mediator ChangeLog
 
+## 2.0.1 - 2023-02-dd
+
+### Fixed
+- Fix `remove()` bug when cookie driver is used to store hints. The
+  cookie options must be passed to `remove()` and were not previously.
+
 ## 2.0.0 - 2022-06-13
 
 ### Changed
