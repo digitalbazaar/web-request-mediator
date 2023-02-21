@@ -127,7 +127,6 @@ export class WebRequestHandlersService extends EventEmitter {
    * @return the origin storage.
    */
   static _getOriginStorage(requestType) {
-    console.log('_getOriginStorage called');
     return localforage.createInstance(_getOriginStorageConfig(requestType));
   }
 
@@ -142,7 +141,6 @@ export class WebRequestHandlersService extends EventEmitter {
    * @return the handler storage.
    */
   static _getHandlerStorage(requestType, origin) {
-    console.log('_getHandlerStorage called');
     return localforage.createInstance(
       _getHandlerStorageConfig(requestType, origin));
   }
@@ -156,7 +154,6 @@ export class WebRequestHandlersService extends EventEmitter {
    *           given request type.
    */
   static async _getAllRegistrations(requestType) {
-    console.log('_getAllRegistrations called');
     // asynchronously get a list of promises where each will resolve to the
     // registered handler URLs for a particular origin
     const registrations = [];

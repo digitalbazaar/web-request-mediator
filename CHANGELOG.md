@@ -1,5 +1,10 @@
 # web-request-mediator ChangeLog
 
+## 2.0.3 - 2023-02-dd
+
+### Fixed
+- Remove superfluous logging.
+
 ## 2.0.2 - 2023-02-21
 
 ### Fixed
