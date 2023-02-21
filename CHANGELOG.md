@@ -1,5 +1,11 @@
 # web-request-mediator ChangeLog
 
+## 2.0.2 - 2023-02-21
+
+### Fixed
+- Handle storage errors in third party contexts in brave when checking
+  permissions.
+
 ## 2.0.1 - 2023-02-15
 
 ### Fixed
