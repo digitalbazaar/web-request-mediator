@@ -19,10 +19,8 @@ export class PermissionManager {
     }
 
     this._request = request;
-    console.log('resolving permissions');
     this.permissions = Promise.resolve(relyingOrigin)
       .then(relyingOrigin => {
-        console.log('creating permission instance');
         return localforage.createInstance({
           name: 'permission_' + relyingOrigin,
           driver: localforage.driver()
@@ -44,7 +42,6 @@ export class PermissionManager {
    */
   async query(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
-    console.log('permission query called');
 
     try {
       const permissions = await this.permissions;
@@ -77,7 +74,6 @@ export class PermissionManager {
    *           (e.g. {state: 'granted'/'denied'})).
    */
   async request(permissionDesc) {
-    console.log('permission request called');
     // TODO: disallow more than one request at a time or pipeline them
     let status = await this.query(permissionDesc);
     if(status.state === 'prompt') {
