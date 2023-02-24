@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2023 Digital Bazaar, Inc. All rights reserved.
  */
 import localforage from './storage.js';
 
@@ -50,10 +50,7 @@ export class PermissionManager {
         return status;
       }
     } catch(e) {
-      // special-case brave; it has no storage in 3rd party context
-      if(!navigator.brave || !e.message.startsWith('No available storage')) {
-        throw e;
-      }
+      _throwIfNotNoStorageError(e);
     }
 
     // return default permission descriptor (state of `prompt`)
@@ -89,11 +86,7 @@ export class PermissionManager {
           const permissions = await this.permissions;
           await permissions.setItem(permissionDesc.name, storeStatus);
         } catch(e) {
-          // special-case brave; it has no storage in 3rd party context
-          if(!navigator.brave ||
-            !e.message.startsWith('No available storage')) {
-            throw e;
-          }
+          _throwIfNotNoStorageError(e);
         }
       }
       // return clean status
@@ -119,10 +112,7 @@ export class PermissionManager {
       const permissions = await this.permissions;
       await permissions.setItem(permissionDesc.name, {state: 'prompt'});
     } catch(e) {
-      // special-case brave; it has no storage in 3rd party context
-      if(!navigator.brave || !e.message.startsWith('No available storage')) {
-        throw e;
-      }
+      _throwIfNotNoStorageError(e);
     }
     // call `query` according to spec
     return this.query(permissionDesc);
@@ -173,4 +163,12 @@ export class PermissionManager {
 
 async function deny() {
   return {state: 'denied'};
+}
+
+function _throwIfNotNoStorageError(error) {
+  // ignore lack of storage in 3rd party context in some browsers; in those
+  // browsers a first party dialog will be used to access storage
+  if(!e.message.startsWith('No available storage')) {
+    throw error;
+  }
 }
