@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 2.0.5 - 2023-02-xx
+## 2.0.5 - 2023-02-24
 
 ### Fixed
 - Fix error handling typo.
