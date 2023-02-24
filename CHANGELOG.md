@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 2.0.4 - 2023-02-dd
+## 2.0.4 - 2023-02-24
 
 ### Fixed
 - Handle storage errors in third party contexts on any browser that
