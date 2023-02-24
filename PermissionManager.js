@@ -168,7 +168,7 @@ async function deny() {
 function _throwIfNotNoStorageError(error) {
   // ignore lack of storage in 3rd party context in some browsers; in those
   // browsers a first party dialog will be used to access storage
-  if(!e.message.startsWith('No available storage')) {
+  if(!error.message.startsWith('No available storage')) {
     throw error;
   }
 }
