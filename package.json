@@ -2,7 +2,9 @@
   "name": "web-request-mediator",
   "version": "2.0.6-0",
   "description": "Web Request Mediator",
-  "main": "index.js",
+  "type": "module",
+  "main": "./index.js",
+  "exports": "./index.js",
   "scripts": {
     "lint": "eslint --ext .cjs,.js ."
   },
@@ -21,9 +23,9 @@
   },
   "homepage": "https://github.com/digitalbazaar/web-request-mediator",
   "dependencies": {
-    "localforage": "^1.5.0",
-    "tiny-cookie": "^2.1.2",
-    "web-request-rpc": "^2.0.0"
+    "localforage": "^1.10.0",
+    "tiny-cookie": "^2.5.1",
+    "web-request-rpc": "^3.0.0"
   },
   "bedrock": {
     "browserDependencies": "all"
@@ -31,6 +33,7 @@
   "devDependencies": {
     "eslint": "^8.57.0",
     "eslint-config-digitalbazaar": "^5.2.0",
-    "eslint-plugin-jsdoc": "^48.4.0"
+    "eslint-plugin-jsdoc": "^48.4.0",
+    "eslint-plugin-unicorn": "^54.0.0"
   }
 }

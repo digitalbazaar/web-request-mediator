@@ -1,5 +1,11 @@
 # web-request-mediator ChangeLog
 
+## 3.0.0 - 2024-xx-xx
+
+### Changed
+- **BREAKING**: Change to module.
+- **BREAKING**: Use `web-request-rpc@3`.
+
 ## 2.0.5 - 2023-02-24
 
 ### Fixed
