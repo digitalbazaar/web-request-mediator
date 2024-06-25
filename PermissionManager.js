@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2023 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2024 Digital Bazaar, Inc. All rights reserved.
  */
 import localforage from './storage.js';
 
@@ -33,12 +33,13 @@ export class PermissionManager {
   /**
    * Obtains the status of the given permission.
    *
-   * @param permissionDesc a PermissionDescriptor containing the name of
-   *          the permission to ask about (e.g. {name: 'permissionName'}).
+   * @param {object} permissionDesc - A PermissionDescriptor containing the
+   *   name of the permission to ask about
+   *   (e.g. {name: 'permissionName'}).
    *
-   * @return a Promise that resolves to the PermissionStatus containing
-   *           the state of the permission
-   *           (e.g. {state: 'granted'/'denied'/'prompt'})).
+   * @returns {Promise<object>} Resolves to the PermissionStatus containing
+   *   the state of the permission
+   *   (e.g. {state: 'granted'/'denied'/'prompt'}).
    */
   async query(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
@@ -63,12 +64,13 @@ export class PermissionManager {
   /**
    * Requests that the user grant a permission to the current origin.
    *
-   * @param permissionDesc a PermissionDescriptor containing the name of
-   *          the permission to request (e.g. {name: 'permissionName'}).
+   * @param {object} permissionDesc - A PermissionDescriptor containing the
+   *   name of the permission to request
+   *   (e.g. {name: 'permissionName'}).
    *
-   * @return a Promise that resolves to the PermissionStatus containing
-   *           the new state of the permission
-   *           (e.g. {state: 'granted'/'denied'})).
+   * @returns {Promise<object>} Resolves to the PermissionStatus containing
+   *   the new state of the permission
+   *   (e.g. {state: 'granted'/'denied'}).
    */
   async request(permissionDesc) {
     // TODO: disallow more than one request at a time or pipeline them
@@ -98,12 +100,13 @@ export class PermissionManager {
   /**
    * Revokes a permission for the current origin.
    *
-   * @param permissionDesc a PermissionDescriptor containing the name of
-   *          the permission to revoke (e.g. {name: 'permissionName'}).
+   * @param {object} permissionDesc - A PermissionDescriptor containing the
+   *   name of the permission to revoke
+   *   (e.g. {name: 'permissionName'}).
    *
-   * @return a Promise that resolves to the PermissionStatus containing
-   *           the new state of the permission
-   *           (e.g. {state: 'granted'/'denied'/'prompt'})).
+   * @returns {Promise<object>} Resolves to the PermissionStatus containing
+   *   the new state of the permission
+   *   (e.g. {state: 'granted'/'denied'/'prompt'}).
    */
   async revoke(permissionDesc) {
     this._validatePermissionDescriptor(permissionDesc);
@@ -121,7 +124,7 @@ export class PermissionManager {
   /**
    * Registers a permission.
    *
-   * @param permissionName the permission name.
+   * @param {string} permissionName - The permission name.
    */
   _registerPermission(permissionName) {
     this.registry[permissionName] = true;
@@ -130,7 +133,7 @@ export class PermissionManager {
   /**
    * Ensures a PermissionDescriptor is valid, throwing exceptions if not.
    *
-   * @param permissionDesc the PermissionDescriptor to check.
+   * @param {object} permissionDesc - The PermissionDescriptor to check.
    */
   _validatePermissionDescriptor(permissionDesc) {
     if(!(permissionDesc && typeof permissionDesc === 'object')) {
@@ -148,7 +151,7 @@ export class PermissionManager {
   /**
    * Ensures a PermissionStatus is valid, throwing exceptions if not.
    *
-   * @param status the PermissionStatus to check.
+   * @param {object} status - The PermissionStatus to check.
    */
   _validatePermissionStatus(status) {
     if(!(status && typeof status === 'object')) {

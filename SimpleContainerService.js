@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2024 Digital Bazaar, Inc. All rights reserved.
  */
 import localforage from './storage.js';
 import {utils} from 'web-request-rpc';
@@ -11,8 +11,12 @@ export class SimpleContainerService {
     itemType,
     permissionManager,
     requiredPermission,
-    validateKey = () => {throw new Error('Not implemented.')},
-    validateItem = () => {throw new Error('Not implemented.')}
+    validateKey = () => {
+      throw new Error('Not implemented.');
+    },
+    validateItem = () => {
+      throw new Error('Not implemented.');
+    }
   }) {
     if(!(relyingOrigin && (typeof relyingOrigin === 'string' ||
       relyingOrigin.then))) {
@@ -78,9 +82,9 @@ export class SimpleContainerService {
    * Gets the item storage API for a particular handler after a same
    * remote origin check.
    *
-   * @param url the URL for the handler.
+   * @param {string} url - The URL for the handler.
    *
-   * @return {Promise} Resolves to the storage API.
+   * @returns {Promise} Resolves to the storage API.
    */
   async _getStorage(url) {
     utils.isValidOrigin(url, await this._relyingOrigin);
@@ -103,10 +107,10 @@ export class SimpleContainerService {
    * Gets the item storage API for a particular handler WITHOUT a same
    * remote origin check.
    *
-   * @param url the URL for the handler.
-   * @param itemType the type of item storage to get.
+   * @param {string} url - The URL for the handler.
+   * @param {string} itemType - The type of item storage to get.
    *
-   * @return the storage API.
+   * @returns {object} The storage API.
    */
   static _getStorage(url, itemType) {
     return localforage.createInstance({
@@ -115,6 +119,7 @@ export class SimpleContainerService {
     });
   }
 
+  /* eslint-disable jsdoc/require-description-complete-sentence */
   /**
    * Return all "item matches" for a handler that match according to a custom
    * matching function. If the match function returns an "item match" object
@@ -129,11 +134,13 @@ export class SimpleContainerService {
    *   item: <item>
    * }
    *
-   * @param url the URL that identifies the handler to check.
-   * @param match({handler, key, item}) the custom matching function.
+   * @param {string} url - The URL that identifies the handler to check.
+   * @param {string} itemType - The type of item storage.
+   * @param {Function} match - The custom matching function of the form:
+   *   match({handler, key, item}).
    *
-   * @return a Promise that resolves to an array of "item match" objects
-   *           according to the `match` function's return values.
+   * @returns {Promise} Resolves to an array of "item match" objects
+   *   according to the `match` function's return values.
    */
   static async _match(url, itemType, match) {
     const matches = [];
@@ -147,12 +154,15 @@ export class SimpleContainerService {
     });
     return matches;
   }
+  /* eslint-enable jsdoc/require-description-complete-sentence */
 
   /**
    * Destroys item storage for a handler.
    *
-   * @param url the URL that identifies the handler.
-   * @param itemType the type of item storage.
+   * @param {string} url - The URL that identifies the handler.
+   * @param {string} itemType - The type of item storage.
+   *
+   * @returns {Promise} Resolves to the storage API.
    */
   static async _destroy(url, itemType) {
     // TODO: use _getStorage(url).dropInstance() instead (when available)
