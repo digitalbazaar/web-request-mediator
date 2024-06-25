@@ -1,5 +1,5 @@
 /*!
- * Copyright (c) 2017-2022 Digital Bazaar, Inc. All rights reserved.
+ * Copyright (c) 2017-2024 Digital Bazaar, Inc. All rights reserved.
  */
 import {EventEmitter} from 'web-request-rpc';
 import localforage from './storage.js';
@@ -7,10 +7,10 @@ import {utils} from 'web-request-rpc';
 
 /* Web Request handlers are tracked by request type. */
 export class WebRequestHandlersService extends EventEmitter {
-  constructor(relyingOrigin, {requestType, permissionManager} = {}) {
+  constructor(relyingOrigin, {/*requestType, */permissionManager} = {}) {
     super({
       async waitUntil(e) {
-        return e._promise
+        return e._promise;
       }
     });
 
@@ -29,11 +29,10 @@ export class WebRequestHandlersService extends EventEmitter {
   /**
    * Creates a handler registration.
    *
-   * @param requestType the type of request handled by the handler.
-   * @param url the unique URL for the handler.
+   * @param {string} requestType - The type of request handled by the handler.
+   * @param {string} url - The unique URL for the handler.
    *
-   * @return a Promise that resolves to the normalized URL for the
-   *           handler.
+   * @returns {Promise} Resolves to the normalized URL for the handler.
    */
   async register(requestType, url) {
     url = _normalizeUrl(url, await this._relyingOrigin);
@@ -51,11 +50,11 @@ export class WebRequestHandlersService extends EventEmitter {
   /**
    * Unregisters a handler, destroying its registration.
    *
-   * @param requestType the type of request handled by the handler.
-   * @param url the unique URL for the handler.
+   * @param {string} requestType - The type of request handled by the handler.
+   * @param {string} url - The unique URL for the handler.
    *
-   * @return a Promise that resolves to `true` if the handler was registered
-   *           and `false` if not.
+   * @returns {Promise} Resolves to `true` if the handler was registered and
+   *   `false` if not.
    */
   async unregister(requestType, url) {
     const relyingOrigin = await this._relyingOrigin;
@@ -70,7 +69,7 @@ export class WebRequestHandlersService extends EventEmitter {
     // emit `unregister` so extensions can handle registration destruction
     const event = {
       type: 'unregister',
-      requestType: requestType,
+      requestType,
       registration: url,
       waitUntil(promise) {
         event._promise = promise;
@@ -87,11 +86,11 @@ export class WebRequestHandlersService extends EventEmitter {
   /**
    * Gets an existing handler registration.
    *
-   * @param requestType the type of request handled by the handler.
-   * @param url the URL for the handler.
+   * @param {string} requestType - The type of request handled by the handler.
+   * @param {string} url - The URL for the handler.
    *
-   * @return a Promise that resolves to the normalized URL for the
-   *            handler or `null` if no such registration exists.
+   * @returns {Promise} Resolves to the normalized URL for the handler or
+   *   `null` if no such registration exists.
    */
   async getRegistration(requestType, url) {
     url = _normalizeUrl(url, await this._relyingOrigin);
@@ -105,11 +104,11 @@ export class WebRequestHandlersService extends EventEmitter {
    * Returns `true` if the given handler has been registered and `false` if
    * not.
    *
-   * @param requestType the type of request handled by the handler.
-   * @param url the URL for the handler.
+   * @param {string} requestType - The type of request handled by the handler.
+   * @param {string} url - The URL for the handler.
    *
-   * @return a Promise that resolves to `true` if the registration exists and
-   *           `false` if not.
+   * @returns {Promise} Resolves to `true` if the registration exists and
+   *   `false` if not.
    */
   async hasRegistration(requestType, url) {
     const relyingOrigin = await this._relyingOrigin;
@@ -122,9 +121,9 @@ export class WebRequestHandlersService extends EventEmitter {
    * Gets origin storage. This storage is used to track all origins that
    * have registered a particular type of web request handler.
    *
-   * @param requestType the request type to get the storage for.
+   * @param {string} requestType - The request type to get the storage for.
    *
-   * @return the origin storage.
+   * @returns {object} The origin storage.
    */
   static _getOriginStorage(requestType) {
     return localforage.createInstance(_getOriginStorageConfig(requestType));
@@ -135,10 +134,10 @@ export class WebRequestHandlersService extends EventEmitter {
    * used to track the specific handlers (for a particular request type) that
    * have been registered by a particular origin.
    *
-   * @param requestType the request type to get the storage for.
-   * @param origin the origin to get the handler storage for.
+   * @param {string} requestType - The request type to get the storage for.
+   * @param {string} origin - The origin to get the handler storage for.
    *
-   * @return the handler storage.
+   * @returns {object} The handler storage.
    */
   static _getHandlerStorage(requestType, origin) {
     return localforage.createInstance(
@@ -148,10 +147,10 @@ export class WebRequestHandlersService extends EventEmitter {
   /**
    * Return all handler URLs for a specific request type.
    *
-   * @param requestType the request type.
+   * @param {string} requestType - The request type.
    *
-   * @return a Promise that resolves to all registered handler URLs for the
-   *           given request type.
+   * @returns {Promise} Resolves to all registered handler URLs for the given
+   *   request type.
    */
   static async _getAllRegistrations(requestType) {
     // asynchronously get a list of promises where each will resolve to the
@@ -180,11 +179,10 @@ export class WebRequestHandlersService extends EventEmitter {
    * the url value. This is a private method that may be called by a mediator
    * to set a registration from within the mediator.
    *
-   * @param requestType the type of request handled by the handler.
-   * @param url the unique URL for the handler.
+   * @param {string} requestType - The type of request handled by the handler.
+   * @param {string} url - The unique URL for the handler.
    *
-   * @return a Promise that resolves to the normalized URL for the
-   *   handler.
+   * @returns {Promise} Resolves to the normalized URL for the handler.
    */
   static async _setRegistration(requestType, url) {
     const parsed = utils.parseUrl(url, origin);
