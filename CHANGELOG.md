@@ -1,6 +1,6 @@
 # web-request-mediator ChangeLog
 
-## 3.0.0 - 2024-xx-xx
+## 3.0.0 - 2024-07-02
 
 ### Changed
 - **BREAKING**: Change to module.
